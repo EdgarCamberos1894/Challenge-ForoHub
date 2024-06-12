@@ -1,4 +1,4 @@
-package com.camberos.challengeforohub.Model;
+package com.camberos.challengeforohub.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -20,7 +20,7 @@ public class Topico {
 
     private LocalDateTime fechaCreacion;
 
-    private String status;
+    private Boolean status;
 
     @ManyToOne
     @JoinColumn(name = "autor_id")
