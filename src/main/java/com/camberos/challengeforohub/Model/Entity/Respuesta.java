@@ -1,4 +1,4 @@
-package com.camberos.challengeforohub.Model;
+package com.camberos.challengeforohub.Model.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

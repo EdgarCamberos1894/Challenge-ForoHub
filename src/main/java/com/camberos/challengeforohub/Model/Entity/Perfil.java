@@ -1,4 +1,4 @@
-package com.camberos.challengeforohub.Model;
+package com.camberos.challengeforohub.Model.Entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
