@@ -1,11 +1,13 @@
-package com.camberos.challengeforohub.Model.Entity;
+package com.camberos.challengeforohub.model.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Entity
 @Table(name = "cursos")
+@NoArgsConstructor
 public class Curso {
 
     @Id

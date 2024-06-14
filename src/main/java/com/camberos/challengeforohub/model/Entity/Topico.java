@@ -1,13 +1,15 @@
-package com.camberos.challengeforohub.Model.Entity;
+package com.camberos.challengeforohub.model.Entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
 @Entity
 @Table(name = "topicos")
+@NoArgsConstructor
 public class Topico {
 
     @Id
@@ -31,4 +33,10 @@ public class Topico {
     private Curso curso;
 
 
+    public Topico(String titulo, String mensaje, Usuario autor, Curso curso) {
+        this.titulo = titulo;
+        this.mensaje = mensaje;
+        this.autor = autor;
+        this.curso = curso;
+    }
 }

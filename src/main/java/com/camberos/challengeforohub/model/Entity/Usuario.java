@@ -1,15 +1,17 @@
-package com.camberos.challengeforohub.Model.Entity;
+package com.camberos.challengeforohub.model.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Entity
 @Table(name = "usuarios")
+@NoArgsConstructor
 public class Usuario {
 
     @Id
@@ -29,4 +31,7 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "perfil_id"))
     @JsonManagedReference
     private List<Perfil> perfiles;
+
+
+
 }
