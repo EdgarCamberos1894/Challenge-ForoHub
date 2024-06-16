@@ -92,7 +92,7 @@ public class TopicoController {
 
     @Transactional
     @PutMapping("/topicos/{id}")
-    @Operation(summary = "Obtiene el listado de los tópicos registrados")
+    @Operation(summary = "Actualiza los datos de un topico a partir del ID")
     public ResponseEntity updateTopicos(@RequestHeader("Authorization") String token,
                                         @PathVariable Long id,
                                         @RequestBody @Valid TopicoRegistroDTO topicoRegistroDTO){
