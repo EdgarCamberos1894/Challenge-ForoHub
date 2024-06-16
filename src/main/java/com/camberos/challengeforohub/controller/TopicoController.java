@@ -1,7 +1,6 @@
 package com.camberos.challengeforohub.controller;
 
 import com.camberos.challengeforohub.infra.errores.ApplicationException;
-import com.camberos.challengeforohub.model.DTO.TopicoActualizaDTO;
 import com.camberos.challengeforohub.model.DTO.TopicoRegistroDTO;
 import com.camberos.challengeforohub.model.DTO.TopicoRespuestaDTO;
 import com.camberos.challengeforohub.model.Entity.Curso;
@@ -11,6 +10,9 @@ import com.camberos.challengeforohub.repository.TopicoRepository;
 import com.camberos.challengeforohub.repository.UsuarioRepository;
 import com.camberos.challengeforohub.security.TokenService;
 import com.camberos.challengeforohub.service.TopicoService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +25,8 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
+@SecurityRequirement(name = "bearer-key")
+@Tag(name = "Tópicos")
 public class TopicoController {
 
     private final TopicoRepository topicoRepository;
@@ -38,6 +42,7 @@ public class TopicoController {
     }
 
     @GetMapping("topicos/{id}")
+    @Operation(summary = "Obtiene los detalles de un tópico a partir del ID")
     public ResponseEntity<TopicoRespuestaDTO> getTopic(@PathVariable Long id) {
         Optional<Topico> topicoOptional = topicoRepository.findById(id);
         if (topicoOptional.isEmpty()) {
@@ -52,6 +57,7 @@ public class TopicoController {
 
     @PostMapping("/topicos")
     @Transactional
+    @Operation(summary = "Registra un nuevo Tópico")
     public ResponseEntity<TopicoRespuestaDTO> saveTopic(@RequestHeader("Authorization") String token,
                                                         @RequestBody @Valid TopicoRegistroDTO datosRegistroTopico,
                                                         UriComponentsBuilder uriComponentsBuilder) {
@@ -71,12 +77,14 @@ public class TopicoController {
     }
 
     @GetMapping("/topicos")
+    @Operation(summary = "Obtiene el listado de los topicos almacenados en la base de datos")
     public ResponseEntity getTopicos(@PageableDefault(10) Pageable pageable) {
         return ResponseEntity.ok(topicoRepository.findAllByOrderByFechaCreacionAsc(pageable).map(TopicoRespuestaDTO::new));
     }
 
 
     @DeleteMapping("/topicos/{id}")
+    @Operation(summary = "Elimina el tópico a partir del ID")
     public ResponseEntity deleteTopicos(@PathVariable Long id){
         topicoRepository.deleteById(id);
         return ResponseEntity.noContent().build();
@@ -84,6 +92,7 @@ public class TopicoController {
 
     @Transactional
     @PutMapping("/topicos/{id}")
+    @Operation(summary = "Obtiene el listado de los tópicos registrados")
     public ResponseEntity updateTopicos(@RequestHeader("Authorization") String token,
                                         @PathVariable Long id,
                                         @RequestBody @Valid TopicoRegistroDTO topicoRegistroDTO){
