@@ -51,6 +51,23 @@ public class TokenService {
         }
     }
 
+    public Long getId(String token) {
+        if (token == null) {
+            throw new IllegalArgumentException("Token cannot be null");
+        }
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(apiSecret);
+            DecodedJWT verifier = JWT.require(algorithm)
+                    .withIssuer("voll med")
+                    .build()
+                    .verify(token);
+
+            return verifier.getClaim("id").asLong();
+        } catch (JWTVerificationException exception) {
+            throw new RuntimeException("Error al verificar el token JWT", exception);
+        }
+    }
+
 
     private Instant generarFechaExpiracion() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-07:00"));
